@@ -57,7 +57,7 @@ eq_clean_data <- function(data){
 #' @export
 geom_timeline <- function(data) {
   df_filtered <<- data %>%
-    filter(COUNTRY %in% c("USA") & YEAR >= 1750)
+    filter(COUNTRY %in% c("USA") & YEAR >= 1980)
   g <- ggplot2::ggplot(df_filtered, aes(x = YEAR, y = COUNTRY, size = EQ_PRIMARY, color = DEATHS, alpha = .3)) +
     geom_point()
   
@@ -77,7 +77,7 @@ geom_timeline <- function(data) {
 #' @export
 geom_timeline_label <- function(data) {
   df_filtered <<- data %>%
-    filter(COUNTRY %in% c("USA") & YEAR >= 1981)
+    filter(COUNTRY %in% c("USA") & YEAR >= 1980)
   g <- ggplot2::ggplot(df_filtered, aes(x = YEAR, y = COUNTRY, size = EQ_PRIMARY, color = DEATHS, alpha = .3)) +
     geom_point() +
     geom_text(label = df_filtered$LOCATION_NAME, angle = 45, size = 2, hjust = 0, nudge_y = .025, check_overlap = TRUE)
