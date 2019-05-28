@@ -2,26 +2,39 @@
 % Please edit documentation in R/Equaker.R
 \name{eq_clean_data}
 \alias{eq_clean_data}
-\title{Cleaning of the data.
-This will clean the data to remove colon from Location Names and convert it to title case for later use.}
+\title{Functions to Analyze Data Set on Earthquake Activity for Capstone Proj in Coursera.
+Read in the tab delimited data file from NOAA.
+Creates a data frame from raw data file.
+data obtained from (National Geophysical Data Center / World Data Service (NGDC/WDS)
+                          Significant Earthquake Database. National Geophysical Data Center, NOAA. 
+                          doi10.7289/V5TD9V7K)}
 \usage{
-eq_clean_data(data)
+eq_clean_data(df)
 }
 \arguments{
-\item{data}{is the data frame with data and NA from previous step}
+\item{df}{is the data frame with data and NA from previous step.}
 }
 \value{
+this funtion will return data frame from tab separated file and fill balnks with NA.
+
 this function will return 'cleaned' data for the previously created data frame
 }
 \description{
-Cleaning of the data.
-This will clean the data to remove colon from Location Names and convert it to title case for later use.
-}
-\note{
-This function will clean up original LOCATION_NAME column data to remove colon and convert to title case for use later.
+Functions to Analyze Data Set on Earthquake Activity for Capstone Proj in Coursera.
+Read in the tab delimited data file from NOAA.
+Creates a data frame from raw data file.
+data obtained from (National Geophysical Data Center / World Data Service (NGDC/WDS)
+                          Significant Earthquake Database. National Geophysical Data Center, NOAA. 
+                          doi10.7289/V5TD9V7K)
 }
 \examples{
-\dontrun {
-eq_clean_data(df)
+\dontrun{
+df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t")
+}
+
+Cleaning of the data.
+
+\dontrun{
+df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t") \%>\% eq_clean_data()
 }
 }

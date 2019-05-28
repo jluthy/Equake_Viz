@@ -1,71 +1,90 @@
 ---
 title: "Equaker"
-author: "Juthy"
-date: "5/19/2019"
-output:
-  html_document:
-    df_print: paged
-vignette: |
-  %\VignetteIndexEntry{Vignette Title} %\VignetteEngine{knitr::rmarkdown} \usepackage[utf8]{inputenc}
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Equaker}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
 ```
 
+```{r setup}
+library(Equaker)
+```
 `Equaker` allows users to load in a data file from NOAA regarding eartquake data and generate a map.
 
 ## eq_readIn_data 
 reads in the tab delimited data file and returns a data frame
 
-```{r readDataFile}
-library(readr)
-df <- eq_readIn_data("./data/results.tsv")
-```
-
 ## eq_clean_data
 Cleans the raw data to remove colons from Location Name for use later.
-```{r cleanDataFile}
+```{r cleanDataFile, eval = TRUE}
 library(dplyr)
 library(purrr)
 library(magrittr)
 library(stringr)
-df_clean <- eq_clean_data(df)
+library(lubridate)
+df = readr::read_delim("./results.tsv", delim = "\t")
+eq_clean_data(df)
+```
+
+##eq_location_clean
+Cleans the original location_name to remove the unwanted formatting which includes a semi-colon.
+```{r cleanLocationName, eval = TRUE}
+library(stringr)
+eq_location_clean(df)
 ```
 
 ## geom_timeline
 filters the data to show events that occured in the USA past a certain date.
-```{r timeline}
+```{r timeline, eval = TRUE}
 library(dplyr)
-library(ggplot)
+library(ggplot2)
 library(magrittr)
-geom_timeline(df_clean)
+df = readr::read_delim("./results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
+geom_timeline(df)
 ```
 
 ## geom_timeline_label
 adds another layer to the map with text
-```{r timelineLabel}
+```{r timelineLabel, eval = TRUE}
 library(dplyr)
-library(ggplot)
+library(ggplot2)
 library(magrittr)
-geom_timeline_label(df_clean)
-```
-
-## eq_map
-this will generate a global map with events show on interactive map
-```{r mapping}
-library(dplyr)
-library(leaflet)
-library(magrittr)
-eq_map(df_filtered)
-{\tt plot(eq_map(df_filtered))}
+df = readr::read_delim("./results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
+geom_timeline_label(df)
+{plot(geom_timeline_label(df))}
 ```
 
 ## eq_create_label
 this will get details to list on popup annotations for eq_map 
-```{r labeld}
+```{r labeld, eval = TRUE}
 library(dplyr)
 library(purrr)
 library(magrittr)
-eq_create_label(df_filtered)
+library(ggplot2)
+# df = readr::read_delim("./results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
+# geom_timeline_label(df)
+eq_create_label(df)
 ```
+
+## eq_map
+this will generate a global map with events show on interactive map
+```{r mapping, eval = TRUE}
+library(dplyr)
+library(leaflet)
+library(magrittr)
+library(ggplot2)
+library(leaflet)
+# df = readr::read_delim("./results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
+# eq_create_label(df)
+eq_map(df)
+```
+
+
