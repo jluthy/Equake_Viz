@@ -2,8 +2,7 @@
 % Please edit documentation in R/Equaker.R
 \name{eq_create_label}
 \alias{eq_create_label}
-\title{Make a label for the popups
-Furthering the detailed information in the annotation boxes}
+\title{Make a label for the popups}
 \usage{
 eq_create_label(data)
 }
@@ -12,8 +11,16 @@ eq_create_label(data)
 }
 \value{
 label information
+
+subdf an updated data frame with label information
 }
 \description{
-Make a label for the popups
 Furthering the detailed information in the annotation boxes
+}
+\examples{
+\dontrun{
+df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t") \%>\% eq_clean_data() \%>\% 
+eq_location_clean()
+geom_timeline_label(df)
+eq_create_label(df)}
 }

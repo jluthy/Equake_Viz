@@ -2,10 +2,9 @@
 % Please edit documentation in R/Equaker.R
 \name{eq_map}
 \alias{eq_map}
-\title{Plot the map
-PLots the global map with annotations for earthquakes within filtered data set.}
+\title{Plot the map}
 \usage{
-eq_map(data, annot_col = "YEAR")
+eq_map(data, annot_col = "popup_text")
 }
 \arguments{
 \item{data}{the cleaned and filtered data frame}
@@ -16,11 +15,13 @@ eq_map(data, annot_col = "YEAR")
 this will return a map with points plotted for records in the US.
 }
 \description{
-Plot the map
-PLots the global map with annotations for earthquakes within filtered data set.
+Plots the global map with annotations for earthquakes within filtered data set.
 }
 \examples{
-\dontrun {
-eq_map(df_filtered)
-}
+\dontrun{
+df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t") \%>\% eq_clean_data() \%>\% 
+eq_location_clean()
+geom_timeline(df)
+eq_create_label(df)
+eq_map(df)}
 }
