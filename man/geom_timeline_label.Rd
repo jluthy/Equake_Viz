@@ -7,7 +7,7 @@
 geom_timeline_label(df)
 }
 \arguments{
-\item{data}{the cleaned data}
+\item{df}{the cleaned data}
 }
 \value{
 this will return a timeline as above but with labels for data points
@@ -17,7 +17,8 @@ Add text labels for each plotted dot on timeline
 }
 \examples{
  \dontrun{
-df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t") \%>\% eq_clean_data() \%>\% eq_location_clean()
+df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t") \%>\% eq_clean_data() \%>\% 
+eq_location_clean()
 geom_timeline_label(df)
 }
 }

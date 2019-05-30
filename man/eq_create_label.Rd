@@ -19,7 +19,8 @@ Furthering the detailed information in the annotation boxes
 }
 \examples{
 \dontrun{
-df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t") \%>\% eq_clean_data() \%>\% eq_location_clean()
+df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t") \%>\% eq_clean_data() \%>\% 
+eq_location_clean()
 geom_timeline_label(df)
 eq_create_label(df)}
 }

@@ -5,15 +5,10 @@
 #' data obtained from (National Geophysical Data Center / World Data Service (NGDC/WDS)
 #'                           Significant Earthquake Database. National Geophysical Data Center, NOAA. 
 #'                           doi10.7289/V5TD9V7K)
-#' @return this funtion will return data frame from tab separated file and fill balnks with NA.
-#' @examples \dontrun{
-#' df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t")
-#' }
-#' 
-#' Cleaning of the data
-#' 
+#' Cleaning the data by formatting the date time & Latitude & Longitude
 #' @param df is the data frame with data and NA from previous step.
 #' @return this function will return 'cleaned' data for the previously created data frame
+#' @importFrom lubridate as_date year month day
 #' @examples \dontrun{
 #' df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data()
 #' }
@@ -34,7 +29,8 @@
 #' @param df is the data frame from intial cleaning of the raw data
 #' @importFrom stringr str_split_fixed str_to_title
 #' @examples \dontrun{
-#' df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
+#' df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data() %>% 
+#' eq_location_clean()
 #' }
 #' @export
   eq_location_clean <- function(df){
@@ -50,10 +46,11 @@
 #' @param df the cleaned data to load into function
 #' @return this function will return a timeline showing dots of relative size color relating to data
 #' @importFrom dplyr filter
-#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 ggplot geom_point
 #' @importFrom magrittr %>%
 #' @examples  \dontrun{
-#' df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
+#' df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data() %>% 
+#' eq_location_clean()
 #' geom_timeline(df)
 #' }
 #' @export
@@ -71,11 +68,12 @@ geom_timeline <- function(df) {
 #' Add text labels for each plotted dot on timeline
 #' @param df the cleaned data
 #' @return this will return a timeline as above but with labels for data points
-#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 ggplot geom_point geom_text
 #' @importFrom magrittr %>%
 #' @importFrom dplyr filter
 #' @examples  \dontrun{
-#' df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
+#' df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data() %>% 
+#' eq_location_clean()
 #' geom_timeline_label(df)
 #' }
 #' @export
@@ -100,7 +98,8 @@ geom_timeline_label <- function(df) {
 #' @importFrom magrittr %>%
 #' @importFrom purrr pmap_chr
 #' @examples \dontrun{
-#' df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
+#' df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data() %>% 
+#' eq_location_clean()
 #' geom_timeline_label(df)
 #' eq_create_label(df)}
 #' @export
@@ -124,7 +123,7 @@ eq_create_label <- function(data) {
     }
     label
   }
-  df <<- data %>%
+  df <- data %>%
     dplyr::mutate(
       popup_text = purrr::pmap_chr(list(LOCATION_NAME, EQ_PRIMARY,
                                         TOTAL_DEATHS, DATE), labeling))
@@ -142,7 +141,8 @@ eq_create_label <- function(data) {
 #' @importFrom magrittr %>%
 #' @importFrom leaflet leaflet addTiles addCircleMarkers
 #' @examples \dontrun{
-#' df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
+#' df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data() %>% 
+#' eq_location_clean()
 #' geom_timeline(df)
 #' eq_create_label(df)
 #' eq_map(df)}
@@ -161,9 +161,11 @@ eq_map <- function(data, annot_col = 'popup_text') {
   m
 }
 
- # df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
+ # df <- readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data() %>%
+ # eq_location_clean()
  # geom_timeline(df)
  # geom_timeline_label(df)
  # eq_create_label(df)
  # eq_map(df)
+
  

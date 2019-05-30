@@ -9,6 +9,11 @@ vignette: >
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  fig.width = 7,
+  fig.height = 3,
+  fig.align = "center",
   collapse = TRUE,
   comment = "#>"
 )
@@ -26,24 +31,30 @@ reads in the tab delimited data file and returns a data frame
 Cleans the raw data to remove colons from Location Name for use later.
 ```{r cleanDataFile, eval = TRUE}
 library(dplyr)
-library(purrr)
 library(magrittr)
 library(stringr)
 library(lubridate)
-df = readr::read_delim("./results.tsv", delim = "\t")
-eq_clean_data(df)
+df = readr::read_delim("./results.tsv", delim = "\t") %>% eq_clean_data()
 ```
 
-##eq_location_clean
-Cleans the original location_name to remove the unwanted formatting which includes a semi-colon.
+## eq_location_clean
+    Cleans the original location_name to remove the unwanted formatting which includes a semi-colon. 
+    Read in the raw data file then run the eq_clean_data function followed by eq_location_clean to 
+    format the LOCATION_NAME to something more readable for use when plotting.
 ```{r cleanLocationName, eval = TRUE}
+library(readr)
 library(stringr)
-eq_location_clean(df)
+library(dplyr)
+library(magrittr)
+library(lubridate)
+df = readr::read_delim("./results.tsv", delim = "\t") %>% eq_clean_data() %>%
+eq_location_clean()
 ```
 
 ## geom_timeline
 filters the data to show events that occured in the USA past a certain date.
 ```{r timeline, eval = TRUE}
+library(lubridate)
 library(dplyr)
 library(ggplot2)
 library(magrittr)
@@ -54,36 +65,37 @@ geom_timeline(df)
 ## geom_timeline_label
 adds another layer to the map with text
 ```{r timelineLabel, eval = TRUE}
+library(lubridate)
 library(dplyr)
 library(ggplot2)
 library(magrittr)
 df = readr::read_delim("./results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
 geom_timeline_label(df)
-{plot(geom_timeline_label(df))}
 ```
 
 ## eq_create_label
 this will get details to list on popup annotations for eq_map 
 ```{r labeld, eval = TRUE}
+library(lubridate)
 library(dplyr)
 library(purrr)
 library(magrittr)
 library(ggplot2)
-# df = readr::read_delim("./results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
-# geom_timeline_label(df)
 eq_create_label(df)
 ```
 
 ## eq_map
 this will generate a global map with events show on interactive map
-```{r mapping, eval = TRUE}
+```{r mapping, eval = FALSE}
+library(lubridate)
 library(dplyr)
 library(leaflet)
 library(magrittr)
 library(ggplot2)
 library(leaflet)
-# df = readr::read_delim("./results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
-# eq_create_label(df)
+library(purrr)
+df = readr::read_delim("./results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
+geom_timeline_label(df)
 eq_map(df)
 ```
 

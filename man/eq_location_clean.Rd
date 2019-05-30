@@ -14,6 +14,7 @@ This will clean the data to remove colon from Location Names and convert it to t
 }
 \examples{
 \dontrun{
-df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t") \%>\% eq_clean_data() \%>\% eq_location_clean()
+df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t") \%>\% eq_clean_data() \%>\% 
+eq_location_clean()
 }
 }

@@ -19,7 +19,8 @@ Plots the global map with annotations for earthquakes within filtered data set.
 }
 \examples{
 \dontrun{
-df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t") \%>\% eq_clean_data() \%>\% eq_location_clean()
+df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t") \%>\% eq_clean_data() \%>\% 
+eq_location_clean()
 geom_timeline(df)
 eq_create_label(df)
 eq_map(df)}

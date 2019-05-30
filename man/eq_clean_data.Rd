@@ -7,7 +7,8 @@ Read in the tab delimited data file from NOAA.
 Creates a data frame from raw data file.
 data obtained from (National Geophysical Data Center / World Data Service (NGDC/WDS)
                           Significant Earthquake Database. National Geophysical Data Center, NOAA. 
-                          doi10.7289/V5TD9V7K)}
+                          doi10.7289/V5TD9V7K)
+Cleaning the data by formatting the date time & Latitude & Longitude}
 \usage{
 eq_clean_data(df)
 }
@@ -15,8 +16,6 @@ eq_clean_data(df)
 \item{df}{is the data frame with data and NA from previous step.}
 }
 \value{
-this funtion will return data frame from tab separated file and fill balnks with NA.
-
 this function will return 'cleaned' data for the previously created data frame
 }
 \description{
@@ -26,14 +25,9 @@ Creates a data frame from raw data file.
 data obtained from (National Geophysical Data Center / World Data Service (NGDC/WDS)
                           Significant Earthquake Database. National Geophysical Data Center, NOAA. 
                           doi10.7289/V5TD9V7K)
+Cleaning the data by formatting the date time & Latitude & Longitude
 }
 \examples{
-\dontrun{
-df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t")
-}
-
-Cleaning of the data.
-
 \dontrun{
 df = readr::read_delim("./inst/extdata/results.tsv", delim = "\\t") \%>\% eq_clean_data()
 }
