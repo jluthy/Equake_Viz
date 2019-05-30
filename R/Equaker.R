@@ -48,6 +48,7 @@
 #' @importFrom dplyr filter
 #' @importFrom ggplot2 ggplot geom_point
 #' @importFrom magrittr %>%
+#' @importFrom rlang .data
 #' @examples  \dontrun{
 #' df = readr::read_delim("./inst/extdata/results.tsv", delim = "\t") %>% eq_clean_data() %>% 
 #' eq_location_clean()
