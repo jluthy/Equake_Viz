@@ -9,8 +9,8 @@ vignette: >
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  message = FALSE,
-  warning = FALSE,
+  message = TRUE,
+  warning = TRUE,
   fig.width = 7,
   fig.height = 3,
   fig.align = "center",
@@ -34,6 +34,7 @@ library(dplyr)
 library(magrittr)
 library(stringr)
 library(lubridate)
+library(readr)
 df = readr::read_delim("./results.tsv", delim = "\t") %>% eq_clean_data()
 ```
 
@@ -58,6 +59,7 @@ library(lubridate)
 library(dplyr)
 library(ggplot2)
 library(magrittr)
+library(readr)
 df = readr::read_delim("./results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
 geom_timeline(df)
 ```
@@ -69,6 +71,7 @@ library(lubridate)
 library(dplyr)
 library(ggplot2)
 library(magrittr)
+library(readr)
 df = readr::read_delim("./results.tsv", delim = "\t") %>% eq_clean_data() %>% eq_location_clean()
 geom_timeline_label(df)
 ```
@@ -87,6 +90,7 @@ eq_create_label(df)
 ## eq_map
 this will generate a global map with events show on interactive map
 ```{r mapping, eval = FALSE}
+library(readr)
 library(lubridate)
 library(dplyr)
 library(leaflet)
